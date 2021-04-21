@@ -1,10 +1,9 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.views import Response
 from rest_framework import generics
 from knox.models import AuthToken
 from knox.auth import TokenAuthentication
-
+from rest_framework.views import APIView, Response
 
 from app.models import Passport
 from .serializers import PassportSerializer, LoginUserSerializer, UserSerializer
@@ -16,6 +15,15 @@ class PassportViewSet(ModelViewSet):
     # permission_classes = (IsAuthenticated,)
     # authentication_classes = (TokenAuthentication,)
 
+
+
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    def get_extra_actions():
+        return []
 
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginUserSerializer
