@@ -6,8 +6,8 @@ class Passport(models.Model):
     lastname = models.CharField(max_length=32)
     middlename = models.CharField(max_length=32)
     phone = models.IntegerField()
-    address = models.CharField(max_length=32)
-    tin = models.IntegerField()
+    address = models.CharField(max_length=54)
+    tin = models.BinaryField()
     
 
     def __str__(self):

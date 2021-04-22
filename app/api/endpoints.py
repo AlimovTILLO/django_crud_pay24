@@ -4,11 +4,12 @@ from django.urls import path
 from knox import views as knox_views
 from django.contrib.auth.decorators import login_required
 
-from .api import PassportViewSet, LoginAPI, CurrentUserView
+from .api import LoginAPI, CurrentUserView, PassportViewSet, AddPassportViewSet
 
 
 router = routers.DefaultRouter()
 router.register('passports', PassportViewSet, 'passports')
+router.register('addpassport', AddPassportViewSet, 'addpassport')
 
 urlpatterns = [
     path("", include(router.urls), name='api'),

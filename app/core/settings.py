@@ -107,6 +107,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
+    }
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -129,3 +134,6 @@ STATIC_URL = '/static/'
 
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+ENCRYPT_SECRET_KEY = "9sd8f7a87f98sadyfha8s6f98sa7eh6fiae"
