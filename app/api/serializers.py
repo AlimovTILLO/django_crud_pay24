@@ -13,12 +13,12 @@ class PassportSerializer(serializers.ModelSerializer):
         model = Passport
         fields = "__all__"
 
-    def create(self, validated_data):
-        cipher = AESCipher(settings.ENCRYPT_SECRET_KEY)
-        user = super(PassportSerializer, self).create(validated_data)
-        user.tin = cipher.encrypt(str(user.tin))
-        user.save()
-        return user
+    # def create(self, validated_data):
+    #     cipher = AESCipher(settings.ENCRYPT_SECRET_KEY)
+    #     user = super(PassportSerializer, self).create(validated_data)
+    #     user.tin = cipher.encrypt(str(user.tin))
+    #     user.save()
+    #     return user
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,7 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
             "last_login",
             "is_superuser",
         ]
-        # fields = "__all__"
 
 
 class LoginUserSerializer(serializers.Serializer):
