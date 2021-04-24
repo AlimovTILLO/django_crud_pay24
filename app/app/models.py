@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from .cryptography import AESCipher
 
+from django_cryptography.fields import encrypt
 # Create your models here.
 
 
@@ -48,6 +49,7 @@ class Passport(models.Model):
     phone = models.IntegerField()
     address = models.CharField(max_length=54)
     tin = EncryptedCharField(max_length=54)
+    sensitive_data = encrypt(models.CharField(max_length=50))
 
     def __str__(self):
         return "%s - %s - %s" % (self.firstname, self.lastname, self.middlename)

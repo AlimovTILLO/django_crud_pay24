@@ -5,14 +5,34 @@ from rest_framework import mixins
 from knox.models import AuthToken
 from knox.auth import TokenAuthentication
 from rest_framework.views import APIView, Response
+from rest_framework import status
+
 
 from app.models import Passport
 from .serializers import PassportSerializer, LoginUserSerializer, UserSerializer
 
 
+
+class PassportList(APIView):
+    """
+    List all passports, or create a new passport.
+    """
+    def get(self, request, format=None):
+        passports = Passport.objects.all()
+        serializer = PassportSerializer(passports, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = PassportSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class PassportViewSet(ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
     serializer_class = PassportSerializer
     queryset = Passport.objects.all()
 
